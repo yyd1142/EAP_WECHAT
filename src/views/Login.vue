@@ -5,9 +5,9 @@
             <span>EAP专员积分管理系统</span>
         </div>
         <div class="login-form-wrap">
-            <input type="text" placeholder="请输入您的账号" v-model="user.name"/>
-            <input type="password" placeholder="请输入您的工号" v-model="user.passwrod"/>
-            <mu-flat-button @click="login()" label="确定" class="login-btn demo-flat-button"/>
+            <input type="text" placeholder="请输入您的账号" v-model="user.name" />
+            <input type="password" placeholder="请输入您的工号" v-model="user.passwrod" />
+            <mu-flat-button @click="login()" label="确定" class="login-btn demo-flat-button" />
         </div>
     </div>
 </template>
@@ -15,6 +15,7 @@
 <script>
 import api from 'api'
 import md5 from 'blueimp-md5'
+var isClick = false;
 export default {
     data() {
         return {
@@ -31,7 +32,27 @@ export default {
     },
     methods: {
         login() {
-
+            for (let key in this.user) {
+                if (this.user[key] == '') {
+                    alert(`${key}不能为空`)
+                    return false;
+                }
+            }
+            if (isClick) {
+                return false;
+            }
+            isClick = true;
+            api.login({
+                userName: this.user.username,
+                password: md5(this.user.password)
+            }).then(result => {
+                if (!result) {
+                    return false;
+                }
+                if (result.code != 0) {
+                    isClick = false;
+                }
+            })
         }
     }
 }

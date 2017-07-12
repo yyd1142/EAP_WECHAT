@@ -3,5 +3,6 @@ const domain = 'http://api.etp.com/'
 
 export default {
   getJSON: httpGet('/xxx'),
-  postJSON: httpPost('/xxx')
+  postJSON: httpPost('/xxx'),
+  login: httpGet('/xxx')
 }
