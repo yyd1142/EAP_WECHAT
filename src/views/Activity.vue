@@ -9,18 +9,20 @@
       </div>
     </div>
     <ul class="activity-table-view mko-box-shadow">
-      <li class="activity-table-cell" v-for="item in 14" @click="linkPath(item)">
-        <img src="/static/assets/default_hd.png" />
-        <div class="activity-item">
-          <div class="title">如何管理您的情绪</div>
-          <div class="item">
-            <span>主办</span>深汕特别合作区深汕巴士有限公司
-          </div>
-          <div class="item">
-            <span>时间</span>5月23日 18:00
-          </div>
-          <div class="item">
-            <span>地点</span>深圳公交大厦24楼大会议室
+      <li class="activity-table-cell" v-for="item in 14">
+        <div @click="linkPath(item)">
+          <img src="/static/assets/default_hd.png" />
+          <div class="activity-item">
+            <div class="title">如何管理您的情绪</div>
+            <div class="item">
+              <span>主办</span>深汕特别合作区深汕巴士有限公司
+            </div>
+            <div class="item">
+              <span>时间</span>5月23日 18:00
+            </div>
+            <div class="item">
+              <span>地点</span>深圳公交大厦24楼大会议室
+            </div>
           </div>
         </div>
         <div class="activity-right">
@@ -43,7 +45,7 @@
         </div>
       </li>
     </ul>
-    <mu-infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore"/>
+    <mu-infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore" />
   </div>
 </template>
 
@@ -75,7 +77,7 @@ export default {
 
     },
     loadMore() {
-      
+
     },
     linkPath(item) {
       this.$router.push({
@@ -121,40 +123,43 @@ export default {
     height: 95px;
     background-color: #ffffff;
     position: relative;
-    img {
-      width: 30vw;
-      height: 94px;
+    div {
       float: left;
-      border-bottom: 1px solid #fff;
-    }
-    .activity-item {
-      width: 55vw;
-      float: left;
-      padding: 0 6px 0 14px;
-      .title {
-        font-size: 16px;
-        color: #313131;
-        letter-spacing: 0px;
-        width: 100%;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        margin-top: 5px;
+      img {
+        width: 30vw;
+        height: 94px;
+        float: left;
+        border-bottom: 1px solid #fff;
       }
-      .item {
-        font-family: PingFangSC-Light;
-        font-size: 10px;
-        color: #7D7D7D;
-        letter-spacing: 0px;
-        width: 100%;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        margin-top: 3px;
-        span {
+      .activity-item {
+        width: 55vw;
+        float: left;
+        padding: 0 6px 0 14px;
+        .title {
+          font-size: 16px;
           color: #313131;
-          font-weight: bold;
-          margin-right: 3px;
+          letter-spacing: 0px;
+          width: 100%;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          margin-top: 5px;
+        }
+        .item {
+          font-family: PingFangSC-Light;
+          font-size: 10px;
+          color: #7D7D7D;
+          letter-spacing: 0px;
+          width: 100%;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          margin-top: 3px;
+          span {
+            color: #313131;
+            font-weight: bold;
+            margin-right: 3px;
+          }
         }
       }
     }
