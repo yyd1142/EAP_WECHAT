@@ -33,7 +33,7 @@
       </ul>
       <div class="rule">积分兑换暂未开放，敬请谅解</div>
     </div>
-    <mu-flat-button label="积分兑换" class="duihuan-btn" label-class="baoming" />
+    <mu-flat-button label="积分兑换" class="duihuan-btn mko-box-shadow-top" label-class="baoming" />
   </div>
 </template>
 

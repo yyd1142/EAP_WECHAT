@@ -36,11 +36,11 @@
                     <span>电话</span>
                 </div>
                 <!--<div class="person-item">
-                                <span>18444444747</span>
-                            </div>-->
-                <input type="text" placeholder="请输入手机号" />
+                                                <span>18444444747</span>
+                                            </div>-->
+                <input type="number" v-model.number="phoneNumber" placeholder="请输入手机号" @keyup.enter="save()" />
             </li>
-            <li class="person-table-cell">
+            <li class="person-table-cell" @click="linkPath('/')">
                 <div class="person-title">
                     <span>积分</span>
                 </div>
@@ -50,15 +50,20 @@
                 </div>
             </li>
         </ul>
+        <indicator ref="indicatorWrapper"></indicator>
     </div>
 </template>
 
 <script>
 import api from 'api'
+import { Indicator } from 'components'
 
 export default {
     data() {
-        return {}
+        return {
+            personItem: {},
+            phoneNumber: ''
+        }
     },
     activated() {
         this.$nextTick(() => {
@@ -66,7 +71,28 @@ export default {
         })
     },
     methods: {
-
+        linkPath(path) {
+            this.$router.push('/');
+        },
+        getPerson() {
+            api.getPerson({
+                m: 'info'
+            }).then(result => {
+                if (!result) return false;
+                if (result.code != 0) {
+                    this.personItem = result.response;
+                }
+            })
+        },
+        save() {
+            this.$refs.indicatorWrapper.isLoading = true;
+            setTimeout(() => {
+                this.$refs.indicatorWrapper.close();
+            }, 1500)
+        }
+    },
+    components: {
+        Indicator
     }
 }
 </script>

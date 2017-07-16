@@ -48,4 +48,8 @@ input {
 .mko-box-shadow {
   box-shadow: 0 1px 5px rgba(136, 136, 136, 0.19);
 }
+
+.mko-box-shadow-top {
+  box-shadow: 2px 0px 11px 0px rgba(136, 136, 136, 0.65)
+}
 </style>
