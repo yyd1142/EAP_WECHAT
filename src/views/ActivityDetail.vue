@@ -38,10 +38,12 @@
                     <i class="icon iconfont icon-renshu"></i>
                     <span>210</span>
                 </div>
-                <div class="item">
-                    <!--<i class="icon iconfont icon-yidianzan red"></i>-->
-                    <i class="icon iconfont icon-dianzan red"></i>
-                    <span class="red">120</span>
+                <div class="item" @click="like()">
+                    <transition name="fade">
+                        <i class="icon iconfont icon-yidianzan red" v-if="isLike"></i>
+                    </transition>
+                        <i class="icon iconfont icon-dianzan red" v-if="!isLike"></i>
+                    <span class="red" v-text="likeValue"></span>
                 </div>
             </div>
         </div>
@@ -50,7 +52,7 @@
             </p>
             <mu-flat-button label="分享给我的朋友" class="detail-share-btn" label-class="baoming" v-if="$route.query.type === 'tab1' ? false : true" @click="$refs.shareWraper.isShare = true;" />
         </div>
-        <mu-flat-button label="报名" class="detail-btn" label-class="baoming" v-if="$route.query.type === 'tab1' ? true : false" @click="$refs.messageBoxWraper.isMessageBox = true;" />
+        <mu-flat-button label="报名" class="detail-btn mko-box-shadow-top" label-class="baoming" v-if="$route.query.type === 'tab1' ? true : false" @click="$refs.messageBoxWraper.isMessageBox = true;" />
         <div class="detail-yibaoming" v-if="false">
             <span>
                 <i class="icon iconfont icon-yibaoming"></i>已报名</span>
@@ -70,7 +72,9 @@ export default {
             activedTab: 'tab1',
             shareText: '转发和同事们一起看看吧',
             messageText: '确定报名？',
-            isShare: false
+            isShare: false,
+            isLike: false,
+            likeValue: 120
         }
     },
     activated() {
@@ -88,6 +92,12 @@ export default {
                 this.shareText = '报名成功<br>转发叫上同事们一起参加吧';
                 this.$refs.shareWraper.isShare = true;
             })
+        },
+        like() {
+            if (!this.isLike) {
+                this.isLike = true;
+                this.likeValue += 1
+            }
         }
     },
     components: {

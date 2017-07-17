@@ -8,56 +8,68 @@
         <span :class="activedTab === 'tab2' ? 'activied' : ''">往期活动</span>
       </div>
     </div>
-    <ul class="activity-table-view mko-box-shadow">
-      <li class="activity-table-cell" v-for="item in 14">
-        <div @click="linkPath(item)">
-          <img src="/static/assets/default_hd.png" />
-          <div class="activity-item">
-            <div class="title">如何管理您的情绪</div>
-            <div class="item">
-              <span>主办</span>深汕特别合作区深汕巴士有限公司
+    <div v-if="datas.length > 0">
+      <ul class="activity-table-view mko-box-shadow">
+        <li class="activity-table-cell" v-for="(item, index) in datas">
+          <div @click="linkPath(item)">
+            <img src="/static/assets/default_hd.png" />
+            <div class="activity-item">
+              <div class="title">如何管理您的情绪</div>
+              <div class="item">
+                <span>主办</span>深汕特别合作区深汕巴士有限公司
+              </div>
+              <div class="item">
+                <span>时间</span>5月23日 18:00
+              </div>
+              <div class="item">
+                <span>地点</span>深圳公交大厦24楼大会议室
+              </div>
+            </div>
+          </div>
+          <div class="activity-right">
+            <div class="type">
+              <span>个辅</span>
             </div>
             <div class="item">
-              <span>时间</span>5月23日 18:00
+              <i class="icon iconfont icon-yuedu"></i>
+              <span>21</span>
             </div>
             <div class="item">
-              <span>地点</span>深圳公交大厦24楼大会议室
+              <i class="icon iconfont icon-renshu"></i>
+              <span>20</span>
+            </div>
+            <div class="item" @click="like(item, index)">
+              <transition name="fade">
+                <i class="icon iconfont icon-yidianzan red" v-if="item.isLike"></i>
+              </transition>
+              <i class="icon iconfont icon-dianzan red" v-if="!item.isLike"></i>
+              <span class="red">{{item.like}}</span>
             </div>
           </div>
-        </div>
-        <div class="activity-right">
-          <div class="type">
-            <span>个辅</span>
-          </div>
-          <div class="item">
-            <i class="icon iconfont icon-yuedu"></i>
-            <span>21</span>
-          </div>
-          <div class="item">
-            <i class="icon iconfont icon-renshu"></i>
-            <span>20</span>
-          </div>
-          <div class="item">
-            <!--<i class="icon iconfont icon-yidianzan red"></i>-->
-            <i class="icon iconfont icon-dianzan red"></i>
-            <span class="red">20</span>
-          </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
+    <no-data text="暂无内容" ref="nodataWrapper" v-else></no-data>
     <mu-infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore" />
   </div>
 </template>
 
 <script>
 import api from 'api'
+import { NoData } from 'components'
 
 export default {
   data() {
     return {
+      datas: [{
+        like: 20, isLike: false
+      }, {
+        like: 21, isLike: true
+      }],
       activedTab: 'tab1',
       loading: false,
-      scroller: null
+      scroller: null,
+      isLike: false
     }
   },
   mounted() {
@@ -86,7 +98,16 @@ export default {
           type: this.activedTab
         }
       });
+    },
+    like(item, index) {
+      if (!item.isLike) {
+        this.datas[index].isLike = true;
+        this.datas[index].like += 1;
+      }
     }
+  },
+  components: {
+    NoData
   }
 }
 </script>
